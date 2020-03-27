@@ -1,5 +1,6 @@
-# spatialCorrelationEstimation
-This repository provides Matlab scripts to estimate spatial correlation and quantify estimation uncertainty. Further documentation can be found in the following paper:
+# Spatial correlation estimation
+
+This repository provides Matlab scripts to model spatial correlation in earthquake ground motions, and quantify estimation uncertainty. Further documentation can be found in the following paper:
 
 Baker, J. W., and Chen, Y. (2020). “Ground motion spatial correlation fitting methods and estimation uncertainty.” (in review).
 
