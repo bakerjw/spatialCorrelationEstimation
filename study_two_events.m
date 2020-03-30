@@ -47,7 +47,7 @@ ylabel('\gamma(h)');
 hold on
 plot(hPlot, sill(fitIdx,k)*(1-exp(-3*hPlot/range(fitIdx,k))), '-k', 'linewidth', 2)
 text(-0.1,-0.07,'(b)','Units', 'Normalized', 'VerticalAlignment', 'Top')
-FormatSubplotFigureBook
+Format2x1SubplotFigure
 print('-dpdf', [options.figurePath 'exampleVariogram.pdf']); % save the figure to a file
 
 
@@ -86,7 +86,7 @@ for i = 1:length(fitIdxVector)
 end
 text(-0.1,-0.07,'(b)','Units', 'Normalized', 'VerticalAlignment', 'Top')
 legend(legendText, 'location', 'southeast','interpreter','latex')
-FormatSubplotFigureBook
+Format2x1SubplotFigure
 print('-dpdf', [options.figurePath 'exampleVariogram4Fits.pdf']); % save the figure to a file
 
 %% plot number of stations at each separation distance 
