@@ -9,8 +9,11 @@ clear; close all; clc;
 %% user inputs
 
 options.figurePath = 'figures/'; % location to print figures
+if ~isfolder(options.figurePath)
+    mkdir(options.figurePath)
+end
+
 options.TStar = 1; % spectral acceleration period of interest 
-% options.TStar = 0.01; % spectral acceleration period of interest 
 options.minNumRecordings = 40; % how many recordings are needed for an earthquake to be considered
 options.fixedSill = 1; % =1 to pre-assume a sill of 1, =0 to fit sill from data (implemented only for some techniques)
 options.renormalize = 1; % =1 to renormalize each event's data to have a standard deviation of 1, =0 otherwise
@@ -158,7 +161,6 @@ for i=1:length(recIdx)
         set(hf, 'Visible', 'off'); % don't show the figure on the screen
         loglog(closest_D(idx), Sa_RotD50(idx,tIdx), '.')
         hold on        
-        loglog(closest_D(idx), medianPred(idx,tIdx), '.g')
         xlabel('Closest distance (km)');
         ylabel(['SA(' num2str(options.TStar) 's) [g]'])
         title(EQ_name_string{i})        

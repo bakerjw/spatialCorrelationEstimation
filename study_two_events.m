@@ -3,7 +3,7 @@
 %
 % Created by Jack Baker, 10/8/2019
 % Heavily reformatted 12/19/2019
-% last edited 3/26/2020
+% last edited 3/30/2020
 
 clear; close all; clc;
 
@@ -53,7 +53,6 @@ print('-dpdf', [options.figurePath 'exampleVariogram.pdf']); % save the figure t
 
 %% variogram fits from multiple techniques
 
-% fitIdxVector = [1, 6, 2, 3]; % which fitting methods to use for illustration
 fitIdxVector = [1, 2, 4, 5]; % which fitting methods to use for illustration
 
 legendText{1} = 'Empirical semivariogram';
@@ -111,19 +110,12 @@ print('-dpdf', [options.figurePath 'numStationsv2.pdf']); % save the figure to a
 
 %% data for GMT maps
 
-k = options.eventNums(1);
-
 for k=1:2 % for each event
-    
-%     % test plot
-%     figure
-%     scatter(longs{options.eventNums(k)}, lats{options.eventNums(k)}, [], resids{options.eventNums(k)})
-    
     % output data files
     data = [longs{options.eventNums(k)}, lats{options.eventNums(k)} resids{options.eventNums(k)}];
-    dlmwrite(['map data/resids_' num2str(k) '.txt'], data)
+    dlmwrite(['data/resids_' num2str(k) '.txt'], data)
     data = [longs{options.eventNums(k)}, lats{options.eventNums(k)} amplitudes{options.eventNums(k)}];
-    dlmwrite(['map data/SAs_' num2str(k) '.txt'], data)
+    dlmwrite(['data/SAs_' num2str(k) '.txt'], data)
 
 end
 
