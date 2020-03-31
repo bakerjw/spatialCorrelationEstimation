@@ -20,7 +20,7 @@ EQ_name_string{options.eventNums} % output the earthquake names to the screen
 %% plot variograms with one example fit
 hPlot = 0:0.5:options.maxR; % finer vector of distances to use for plotting functional predictions
 
-fitIdx = 6; % which fitting method to use for illustration
+fitIdx = 2; % which fitting method to use for illustration
 
 
 figure 

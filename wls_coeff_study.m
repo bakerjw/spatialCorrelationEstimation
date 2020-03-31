@@ -7,7 +7,7 @@
 
 clear; close all; clc;
 
-load main_data station_lat station_long recIdx recIdxLg eventIdxLg recsPerEQ eventIdx options numRecs
+load main_data station_lat station_long recIdx recsPerEQ eventIdx options numRecs
 figLabel = {'(a)', '(b)', '(c)', '(d)', '(e)', '(f)'};
 
 %% which earthquakes to evaluate
@@ -62,8 +62,6 @@ subplot(1,2,1)
 hold on
 for k = 1:length(rangeVals)
     ht(k) = plot(WLScoeffVals, BIAS{k}, 'linewidth', 2);
-    %[~, idx] = min(MSE{k});
-    %plot(WLScoeffVals(idx), MSE{k}(idx), 'o')
     legendText{k} = ['r = ' num2str(rangeVals(k)) ' km'];
 end
 xlabel('c [km]')
@@ -79,13 +77,10 @@ subplot(1,2,2)
 hold on
 for k = 1:length(rangeVals)
     ht(k) = plot(WLScoeffVals, AvgCOV{k}, 'linewidth', 2);
-    %[~, idx] = min(MSE{k});
-    %plot(WLScoeffVals(idx), MSE{k}(idx), 'o')
     legendText{k} = ['r = ' num2str(rangeVals(k)) ' km'];
 end
 xlabel('c [km]')
 ylabel('Average coefficient of variation')
-% legend(ht, legendText, 'location', 'Southeast')
 set(gca, 'yLim', [0 1])
 set(gca, 'xLim', [0 12])
 text(-0.1,-0.07,'(b)','Units', 'Normalized', 'VerticalAlignment', 'Top')
@@ -98,7 +93,6 @@ print('-dpdf', [options.figurePath 'WLS_coefficient_study.pdf']); % save the fig
 %% plot weighting functional form
 figure
 h=0:0.5:60;
-% subplot(1,2,2)
 hold on
 plot(h, exp(-h/9), '--b', 'linewidth', 2)
 plot(h, exp(-h/5), '-k', 'linewidth', 2)
@@ -134,7 +128,6 @@ for j=1:4
     title(['c = ' num2str(WLScoeffVals(cIdx(j))) ' km'])
     text(-0.1,-0.07,figLabel{j},'Units', 'Normalized', 'VerticalAlignment', 'Top')
 end
-
 Format2x2SubplotFigure
 print('-dpdf', [options.figurePath 'WLS_coeff_scatter_plots.pdf']); % save the figure to a file
 

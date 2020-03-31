@@ -74,10 +74,6 @@ end
 eventIdx = eventIdxAll(sortedNumRecs>=options.minNumRecordings)'; % select the events with a sufficient number of recordings, and transpose
 recIdx = exampleRec(eventIdx);
 
-eventIdxLg = eventIdxAll(sortedNumRecs>=100)'; % a second index of only very well recorded earthquakes
-recIdxLg = exampleRec(eventIdxLg);
-
-
 % format numerical-valued earthquake names to strings, for output to a table
 for i=1:length(recIdx)
    temp = EQ_name{recIdx(i)};
@@ -103,19 +99,14 @@ for i=1:length(recIdx)
     longs{i} = station_long(idx{i});
 end
 
-
 save('singleEventData.mat', 'options', 'resids', 'amplitudes', 'lats', 'longs')
  
-
-% return
-
 
 %% summary analysis for each event
 
 nBins = round(options.maxR/options.binSize); % how many semivariogram bins will there be
 gamma  = zeros(length(recIdx),nBins); % initialize matrix of semivariograms
 nPairs = zeros(length(recIdx),nBins); % initialize matrix of number of station pairs
-
 
 for i=1:length(recIdx)
     idx = recsPerEQ{eventIdx(i)}; % load allowable records for this event
@@ -130,62 +121,16 @@ for i=1:length(recIdx)
     
     % semivariogram
     [sill(:,i), range(:,i), h, gamma(i,:), nPairs(i,:), methodName, methodNameShort] = fn_compute_variogram(station_lat(idx), station_long(idx), resids, options);
-    %[sillL(i,1 ), rangeL(i,1), sillH(i,1), rangeH(i,1), sillLS(i,1), rangeLS(i,1), sillWLS(i,1), rangeWLS(i,1), h, gamma(i,:), nPairs(i,:)] = fn_compute_variogram (station_lat(idx), station_long(idx), resids, options);
     if options.plotFig % finish plot that was started inside fn_compute_variogram
         title(EQ_name_string{i})
         FormatFigureBook
         print('-dpdf', [options.figurePath 'perEvent/' num2str(i) '_exampleSemivariogram.pdf']); % save the figure to a file
         close all
-    end
-
-    if options.plotFigExtra
-        % Plot residuals vs distance
-        distRef = [0 300]; % reference distance values to use in residual plots
-        
-        hf = figure;
-        set(hf, 'Visible', 'off'); % don't show the figure on the screen
-        plot(closest_D(idx), resids, '.k')
-        hold on
-        plot(distRef, [0 0], '-k')
-        plot(distRef, [b(1) + b(2).*distRef], '-b') % add a regression line
-        xlabel('Closest distance (km)');
-        ylabel('\delta W')
-        title(EQ_name_string{i})
-        legend('Data', '\delta W = 0', 'Regression line')
-        set(gca, 'ylim', [-6 6])
-        FormatFigureBook
-        print('-dpdf', [options.figurePath 'perEvent/' num2str(i) '_residsVsDistance.pdf']); % save the figure to a file
-        
-        % Plot amplitudes versus distance
-        hf = figure;
-        set(hf, 'Visible', 'off'); % don't show the figure on the screen
-        loglog(closest_D(idx), Sa_RotD50(idx,tIdx), '.')
-        hold on        
-        xlabel('Closest distance (km)');
-        ylabel(['SA(' num2str(options.TStar) 's) [g]'])
-        title(EQ_name_string{i})        
-        FormatFigureBook
-        print('-dpdf', [options.figurePath 'perEvent/' num2str(i) '_ampsVsDistance.pdf']); % save the figure to a file
-         
-        % Plot latitudes and longitudes
-        hf = figure;
-        set(hf, 'Visible', 'off'); % don't show the figure on the screen
-        plot(station_long(idx), station_lat(idx), '.')
-        hold on        
-        plot(hypo_long(idx(1)), hypo_lat(idx(1)), 'pk')
-        xlabel('Longitude');
-        ylabel('Latitude')
-        title(EQ_name_string{i})
-        FormatFigureBook
-        print('-dpdf', [options.figurePath 'perEvent/' num2str(i) '_LatLong.pdf']); % save the figure to a file      
-        
-        close all
-    end
-    
+    end    
 end
 
 % save workspace to avoid later recomputation
-save main_data station_lat station_long magnitude recIdx recIdxLg recsPerEQ eventIdx eventIdxLg EQ_year EQ_name_string options nPairs h gamma sill range methodName methodNameShort numRecs
+save main_data station_lat station_long magnitude recIdx recsPerEQ eventIdx EQ_year EQ_name_string options nPairs h gamma sill range methodName methodNameShort numRecs
 
 
 

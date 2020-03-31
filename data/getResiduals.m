@@ -38,7 +38,7 @@ resid_RotD50BetweenLong  = nan*ones(max(eqid), numT); % leave a row for each eqi
 
 % get max usable period for each ground motion
 maxUsableT = 1./lowest_usable_freq;
-% screening flag based on Vs30 (to match Heresi and Miranda)
+% screening flag based on Vs30 
 allowableVs30 = (soil_Vs30 >= 180 &  soil_Vs30 <= 760);
 % screening flag based on distance (to omit distant low-amplitude motions and missing-value cases)
 allowableR = (closest_D < 300 & closest_D > 0);
@@ -60,7 +60,6 @@ end
 for i = 1:numT % period index
     i
     allowableFilter = (maxUsableT > Periods(i) & Sa_RotD50(:,i)>0); % omit missing records spectra that are outside usable period range or are missing
-%     idxTemp = find(allowableFilter & chiouYoungsUsed); % find records used by Chiou and Youngs, and with usable data at this period
     idxTemp = find(allowableFilter & allowableVs30 & allowableR); % find records used by Chiou and Youngs, and with usable data at this period
     [~, eqIdx] = sort(eqid(idxTemp)); % now adjust index so that it puts the data in order by eqid (needed for mixed effects function)
     idx = idxTemp(eqIdx);

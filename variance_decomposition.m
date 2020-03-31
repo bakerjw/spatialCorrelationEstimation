@@ -75,7 +75,7 @@ if 1==1 % run new analysis
     Periods(75:end) = []; % omit long period data with more limited results
     
     
-    clear range sill
+    clear range sill % clear old variables because we are computing new range data for all periods
     
     for j = 1:length(Periods)
         options.TStar = Periods(j); % update this just in case it influences a later calculation
@@ -123,10 +123,10 @@ hold on
 plot(Periods, movmean(totalSigmaMd,nAvg), '-b')
 plot(Periods, movmean(totalSigmaSm,nAvg), '-r')
 
-semilogx(Periods, estSigmaLg*ones(size(Periods)), '--k')
-hold on
-plot(Periods, estSigmaMd*ones(size(Periods)), '--b')
-plot(Periods, estSigmaSm*ones(size(Periods)), '--r')
+% semilogx(Periods, estSigmaLg*ones(size(Periods)), '--k')
+% hold on
+% plot(Periods, estSigmaMd*ones(size(Periods)), '--b')
+% plot(Periods, estSigmaSm*ones(size(Periods)), '--r')
 
 h1 = semilogx(Periods, movmean(sigmaRealLg,nAvg), '-k', 'linewidth', 2);
 hold on

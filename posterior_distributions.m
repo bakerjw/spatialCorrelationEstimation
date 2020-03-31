@@ -12,13 +12,9 @@ load synthetic_data
 %% Set which data to consider
 
 k = 2; % use WLS data
-
 rangeData = range(k, :); % use range values estimated from WLS
-% rangeData = synthetic.range{k}(:,1)'; % alternative--use range data from simulated data 
-
 
 nStations = numRecs(eventIdx);
-
 
 
 %% distribution estimates
@@ -32,7 +28,6 @@ sigma_1 = std(synthetic.range{k},[],2);
 
 % standard deviation of range prior
 sigma_0 = 20; % hard-coded for SA(1s) data from interpretation of prior analysis
-%sigma_0 = sqrt(sigma_total^2 - mean(sigma_1.^2));
 
 % mean of range posterior
 range_posterior = sigma_0^2 ./ (sigma_0^2 + sigma_1.^2) .* rangeData' + sigma_1.^2 ./ (sigma_0^2 + sigma_1.^2) * mean(rangeData);

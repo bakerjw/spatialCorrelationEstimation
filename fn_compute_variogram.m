@@ -59,16 +59,6 @@ end
 
 [sill, range, ~, methodName, methodNameShort] = fit_vario(h, gamma, nPairs, options);
 
-% Old version of fitting functions
-% [sillL, rangeL] = fit_vario_Loth(h, gamma, options); % Fit using the approach of Loth and Baker 
-% [sillH, rangeH] = fit_vario_Heresi_exp(h, gamma, options); % Fit using weighted least squares (Heresi and Miranda)
-% % [sillLS, rangeLS] = fit_vario_LS(h, gamma, options); % Fit an exponential model
-% [sillLS, rangeLS] = fit_vario_Cressie(h, gamma, nPairs, options); % Fit using weighted least squares (Cressie)
-% [sillWLS, rangeWLS] = fit_vario_WLS(h, gamma, nPairs, options); % Fit using weighted least squares (distance)
-% [sillNH,rangeNH] = fit_vario_NH(h, gamma, nPairs, options); % Fit using n-h weighting
-
-
-
 % Plot the results
 if options.plotFig
     hPlot = 0:0.5:options.maxR; % use a finer distance resolution for plotting semivariograms
@@ -82,10 +72,6 @@ if options.plotFig
         h(i) = plot(hPlot, sill(i) * (1-exp(-3.*hPlot./range(i))),options.linespec{i});
         legendText{i+1} = methodName{i};
     end
-%         h2=plot(hPlot, sillL*  (1-exp(-3.*hPlot./rangeL)), 'Color',[0.7 0.7 0.7], 'linewidth', 2);
-%         h3=plot(hPlot, sillH*  (1-exp(-3.*hPlot./rangeH)), 'Color','r', 'linewidth', 2);
-%         h4=plot(hPlot, sillLS* (1-exp(-3.*hPlot./rangeLS)), 'Color','b', 'linewidth', 2);
-%         h5=plot(hPlot, sillWLS*(1-exp(-3.*hPlot./rangeWLS)), 'Color','g', 'linewidth', 2);
     legend(legendText, 'location', 'southeast')
     xlabel('h [km]');
     ylabel('\gamma(h)');

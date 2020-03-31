@@ -35,7 +35,6 @@ end
 %% plots of results from the synthetic data 
 synthetic_data_plots
 
-
 %% analyze estimation and true variance
 variance_decomposition
 
@@ -43,5 +42,5 @@ variance_decomposition
 posterior_distributions
 
 %% study role of WLS coefficient value
-wls_coeff_study2 
+wls_coeff_study 
 
