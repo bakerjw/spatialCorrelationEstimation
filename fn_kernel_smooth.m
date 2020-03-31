@@ -9,9 +9,7 @@ nAvg = 25; % how many nearest neighbors to average
 [xSort,idx] = sort(xObs);
 ySort = yObs(idx);
 
-% yVals = movmean(ySort,nAvg);
-yVals = smoothdata(ySort,'gaussian',nAvg);
-
+yVals = movmean(ySort,nAvg);
 
 end
 
