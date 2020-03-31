@@ -9,9 +9,7 @@ clear; close all; clc;
 %% user inputs
 
 options.figurePath = 'figures/'; % location to print figures
-if ~isfolder(options.figurePath)
-    mkdir(options.figurePath)
-end
+mkdir(options.figurePath)
 
 options.TStar = 1; % spectral acceleration period of interest 
 options.minNumRecordings = 40; % how many recordings are needed for an earthquake to be considered
