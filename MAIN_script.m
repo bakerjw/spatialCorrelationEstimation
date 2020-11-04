@@ -1,10 +1,12 @@
 % Main script to call other code in this folder
 % Created by Jack Baker 12/17/2019
+% Updated 11/4/2020 to reflect final publication info
 %
-% Results from these calculations are in:
+% Results and motivations related to these calculations are documented in:
 %
 % Baker and Chen (2020), "Ground motion spatial correlation fitting methods 
-% and estimation uncertainty" (in review).
+% and estimation uncertainty" Earthquake Engineering & Structural Dynamics, 
+% 49(15), 1662–1681. 
 
 clear; close all; clc;
 
