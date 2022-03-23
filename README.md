@@ -9,3 +9,5 @@ https://doi.org/10.1002/eqe.3322
 The script MAIN_script.m in the root directory will produce the data and figures used in the above manuscript.
 
 The script MAIN_variogram.m in the "simple fitting example" folder will perform a very simple computation of a semivariogram and model fit, to illustrate the basic mechanics of geostatical calculations.
+
+The NGA-West2 data were updated in March 2022 to correct errors in the Z1 and region values associated with the ground motion database, and the code now produces figures that are slightly updated relative to the originally published results. Thank you to Eduardo Miranda and Alan Poulos for identifying the errors and helping resolve them.
