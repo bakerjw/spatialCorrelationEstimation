@@ -3,12 +3,15 @@
 % Created 6/2/2016
 % Updated 9/30/2019 for spatial correlation study, to revise data filtering
 % and provide an end-to-end code base for analysis
+% Updated 3/23/2022 to utilize corrected Z1_CVMH values
 
 
 clear; close all; clc;
 
 %% load raw data
 load NGA_W2_corr_meta_data % needed data from the NGA-West2 flatfile
+load Z1_Z25_updated % load corrected values of the Z1 variables
+Z1_CVMH(Z1_CVMH>0) = Z1_CVMH(Z1_CVMH>0)/1000; % the flatfile values are in units of m, the GMM below expects units of km (leave the -999 values unchanged)
 
 
 %% initialize matrices
