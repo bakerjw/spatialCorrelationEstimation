@@ -3,6 +3,7 @@
 % Last updated 10/2/2019 to incorporate new analysis
 % Updated 12/19/2019 to modularize calculations
 % Updated 3/17/2020 to better organize permutations of semivariogram fitting
+% Updated 4/20/2022 to include MLL based estimation (fitMethod = 7)
 
 clear; close all; clc;
 
@@ -31,7 +32,7 @@ options.syntheticRange = 30;
 options.funcForm = 1;
 
 % which fitting techniques to use
-options.fitMethod = 1:6;
+options.fitMethod = 1:7;
 
 % labels for lines
 options.linespec{1} = '--k';
@@ -40,7 +41,7 @@ options.linespec{3} = '-c';
 options.linespec{4} = '-g';
 options.linespec{5} = '-b';
 options.linespec{6} = '-k';
-
+options.linespec{7} = '--b';
 
 
 %% load residuals data

@@ -4,6 +4,7 @@ function [sill, range, h, gamma, nPairs, methodName, methodNameShort] = fn_compu
 % initial code from Christophe Loth, 09/12/12
 % heavily modified by Jack Baker 2/1/2019
 % last updated 3/17/2020
+% modified by Lukas Bodenmann 04/13/2022: Incorporate MLL
 %
 % Calculate empirical semivariograms from data, using several fitting
 % techniques
@@ -59,6 +60,10 @@ end
 
 [sill, range, ~, methodName, methodNameShort] = fit_vario(h, gamma, nPairs, options);
 
+% MLL method operates directly with long/lat
+if any(options.fitMethod==7)
+    [sill(end+1), range(end+1), ~, methodName{end+1}, methodNameShort{end+1}] = fit_MLL(lats, longs, values, options);
+
 % Plot the results
 if options.plotFig
     hPlot = 0:0.5:options.maxR; % use a finer distance resolution for plotting semivariograms
@@ -69,7 +74,11 @@ if options.plotFig
     hEmp=plot(h, gamma, '.k', 'linewidth', 2);
     hold on
     for i = 1:length(options.fitMethod)
-        h(i) = plot(hPlot, sill(i) * (1-exp(-3.*hPlot./range(i))),options.linespec{i});
+        if options.funcForm == 1
+            h(i) = plot(hPlot, sill(i) * (1-exp(-3.*hPlot./range(i))),options.linespec{i});
+        elseif options.funcForm == 2
+            h(i) = plot(hPlot, sill(i) * (1-exp(-(hPlot.^0.55)./range(i))),options.linespec{i});
+        end
         legendText{i+1} = methodName{i};
     end
     legend(legendText, 'location', 'southeast')
